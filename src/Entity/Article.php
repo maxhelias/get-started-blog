@@ -22,6 +22,9 @@ class Article
     #[ORM\ManyToOne(targetEntity: Author::class, inversedBy: 'articles')]
     private $author;
 
+    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'articles')]
+    private $user;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -59,6 +62,18 @@ class Article
     public function setAuthor(?Author $author): self
     {
         $this->author = $author;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }
