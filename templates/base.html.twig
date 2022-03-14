@@ -21,18 +21,27 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav">
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="{{ path('app_blog') }}">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ path('app_article_index') }}">Articles</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ path('app_author_index') }}">Auteurs</a>
-                        </li>
-                        {% if is_granted('ROLE_ADMIN') %}
+                        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ path('app_user_index') }}">Utilisateurs</a>
+                                <a class="nav-link {% if app.request.get('_route') == 'app_blog' %}active{% endif %}" aria-current="page" href="{{ path('app_blog') }}">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link {% if app.request.get('_route') == 'app_article_index' %}active{% endif %}" href="{{ path('app_article_index') }}">Articles</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link {% if app.request.get('_route') == 'app_author_index' %}active{% endif %}" href="{{ path('app_author_index') }}">Auteurs</a>
+                            </li>
+                            {% if is_granted('ROLE_ADMIN') %}
+                                <li class="nav-item">
+                                    <a class="nav-link {% if app.request.get('_route') == 'app_user_index' %}active{% endif %}" href="{{ path('app_user_index') }}">Utilisateurs</a>
+                                </li>
+                            {% endif %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ path('app_logout') }}">Déconnexion</a>
+                            </li>
+                        {% else %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ path('app_login') }}">Login</a>
                             </li>
                         {% endif %}
                     </ul>
